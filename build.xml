@@ -1,0 +1,25 @@
+<!--
+Use ant to create npl package
+-->
+<project name="NplPackage" basedir="." default="createPackage"> 
+    <property name="PackageName" value="NplCef3"/>  
+    <property name="output" value="${basedir}/output"/>  
+    <property name="dist" value="${output}/${PackageName}/${PackageName}"/>  
+
+    <target name="makeDirectory" >  
+        <delete dir="${output}"/>  
+        <mkdir dir="${dist}"/>  
+    </target>  
+    <target name="createPackage" depends="makeDirectory" description="create npl package">  
+        <copy todir="${dist}">
+            <fileset dir="${basedir}" includes="README.md"/>
+            <fileset dir="${basedir}" includes="icon.png"/>
+        </copy>
+        <copy todir="${dist}/Mod">
+            <fileset dir="${basedir}/Mod"/>
+        </copy>
+        <zip destfile="${PackageName}.zip"
+            basedir="${output}/${PackageName}" zip64Mode="never"
+        />
+    </target>  
+</project>
